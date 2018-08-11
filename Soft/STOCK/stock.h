@@ -8,6 +8,9 @@
 
 class Stock
 {
+public:
+
+private:
 
 };
 

@@ -9,6 +9,8 @@ QT     -= gui
 CONFIG += console
 CONFIG -= app_bundle
 
+LIBS += -lpthread libwsock32 libws2_32
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Soft
@@ -31,13 +33,15 @@ SOURCES += \
         USER\mainwindow.cpp \
         TRADE\trade.cpp \
         DATA\data.cpp \
-        STOCK\stock.cpp
+        STOCK\stock.cpp \
+        WEB\web.cpp
 
 HEADERS += \
         USER\mainwindow.h \
         TRADE\trade.h \
         DATA\data.h \
-        STOCK\stock.h
+        STOCK\stock.h \
+        WEB\web.h
 
 FORMS += \
         USER\mainwindow.ui

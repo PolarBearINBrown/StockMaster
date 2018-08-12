@@ -37,7 +37,8 @@ SOURCES += \
         WEB\web.cpp \
         KEYBOARD\keyboard.cpp \
         MOUSE\mouse.cpp \
-        WINAPI\winapi.cpp
+        WINAPI\winapi.cpp \
+        TDXWIN\tdxwin.cpp
 
 HEADERS += \
         USER\mainwindow.h \
@@ -47,7 +48,8 @@ HEADERS += \
         WEB\web.h \
         KEYBOARD\keyboard.h \
         MOUSE\mouse.h \
-        WINAPI\winapi.h
+        WINAPI\winapi.h \
+        TDXWIN\tdxwin.h
 
 FORMS += \
         USER\mainwindow.ui

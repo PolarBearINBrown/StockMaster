@@ -470,7 +470,7 @@ RTD Data::Get_Real_Time_Data()
         R.run=1;
         return R;
     }
-    Output_RTD();
+    //Output_RTD();
     R.run=0;
     return R;
 }
@@ -482,7 +482,7 @@ IND Data::Get_Index_Data()
         I.run=1;
         return I;
     }
-    Output_IND();
+    //Output_IND();
     I.run=0;
     return I;
 }

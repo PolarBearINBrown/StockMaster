@@ -2,6 +2,7 @@
 #include "TRADE/trade.h"
 #include "DATA/data.h"
 #include "MOUSE/mouse.h"
+#include "TDXWIN/tdxwin.h"
 #include <QApplication>
 
 #include "iostream"
@@ -15,7 +16,7 @@ int main(int argc, char *argv[])
     w.show();
     */
 
-
+    /*
     Data D;
     while(1)
     {
@@ -24,7 +25,7 @@ int main(int argc, char *argv[])
         D.Send_Code(C);
         D.Get_Real_Time_Data();
     }
-
+    */
 
     /*
     Mouse M;
@@ -40,6 +41,9 @@ int main(int argc, char *argv[])
         }
     }
     */
+
+    TdxWin tdx;
+    tdx.Soft_Initial();
 
     return a.exec();
 }

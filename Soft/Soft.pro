@@ -34,14 +34,18 @@ SOURCES += \
         TRADE\trade.cpp \
         DATA\data.cpp \
         STOCK\stock.cpp \
-        WEB\web.cpp
+        WEB\web.cpp \
+        KEYBOARD\keyboard.cpp \
+        MOUSE\mouse.cpp
 
 HEADERS += \
         USER\mainwindow.h \
         TRADE\trade.h \
         DATA\data.h \
         STOCK\stock.h \
-        WEB\web.h
+        WEB\web.h \
+        KEYBOARD\keyboard.h \
+        MOUSE\mouse.h
 
 FORMS += \
         USER\mainwindow.ui

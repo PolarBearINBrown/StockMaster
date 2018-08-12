@@ -7,6 +7,7 @@
 #if defined DATA_CPP
 
 #include "string.h"
+#include "iostream"
 using namespace std;
 
 #endif
@@ -23,8 +24,8 @@ typedef struct Real_Time_Data
     float     lowest;
     float     bid;       //竞买价
     float     auction;   //竞卖价
-    long long volume;
-    long long turnover;
+    int       volume;
+    double    turnover;
     int       buy_1_amount;
     float     buy_1_price;
     int       buy_2_amount;
@@ -67,6 +68,7 @@ private:
     RTD R;
     IND I;
     Web W;
+    bool Process_String(char *dat);
     bool Refresh_Real_Time_Data();
     bool Refresh_Index_Data();
 };

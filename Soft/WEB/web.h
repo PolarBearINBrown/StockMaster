@@ -9,7 +9,7 @@ using namespace std;
 
 #endif
 
-#include "QString"
+#include "string"
 #include "stdlib.h"
 #include "winsock2.h"
 #pragma comment(lib,"ws2_32.lib")
@@ -18,8 +18,8 @@ class Web
 {
 public:
     Web();
-    bool Send_Host(char* hos);
-    QString Get_Infomation(char* Sub);
+    bool  Send_Host(char* hos);
+    char* Get_Infomation(char* Sub);
 private:
     char*       host;
     char*       subdirectory;
@@ -29,7 +29,6 @@ private:
     LPSTR       ipstr;
     sockaddr_in si;
     int         sock;
-    int         ret;
 
     bool Web_Initial();
     bool Get_IPaddr();

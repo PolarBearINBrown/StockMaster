@@ -16,7 +16,7 @@ bool Web::Send_Host(char *hos)
     return false;
 }
 
-QString Web::Get_Infomation(char *Sub)
+char* Web::Get_Infomation(char *Sub)
 {
     subdirectory=Sub;
     if(Send_Request())
@@ -25,9 +25,7 @@ QString Web::Get_Infomation(char *Sub)
     }
     char* buf=(char*)calloc(1024,1);
     recv(sock,buf,1023,0);
-    QString Ans=buf;
-    cout<<buf;
-    return Ans;
+    return buf;
 }
 
 bool Web::Web_Initial()
@@ -80,7 +78,7 @@ bool Web::Send_Request()
     strcat(request," HTTP/1.1\r\nHost: ");
     strcat(request,host);
     strcat(request,"\r\nConnection:Close\r\n\r\n");
-    ret=send(sock,request,strlen(request),0);
+    send(sock,request,strlen(request),0);
     return false;
 }
 

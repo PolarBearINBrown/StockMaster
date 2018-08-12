@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "TRADE/trade.h"
 #include "DATA/data.h"
 #include "MOUSE/mouse.h"
 #include "TDXWIN/tdxwin.h"

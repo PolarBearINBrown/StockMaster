@@ -31,7 +31,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         USER\main.cpp \
         USER\mainwindow.cpp \
-        TRADE\trade.cpp \
         DATA\data.cpp \
         STOCK\stock.cpp \
         WEB\web.cpp \
@@ -42,7 +41,6 @@ SOURCES += \
 
 HEADERS += \
         USER\mainwindow.h \
-        TRADE\trade.h \
         DATA\data.h \
         STOCK\stock.h \
         WEB\web.h \

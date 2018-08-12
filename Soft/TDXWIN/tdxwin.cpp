@@ -15,6 +15,12 @@ bool TdxWin::Soft_Initial()
 
 void TdxWin::Set_Main_Top()
 {
+    api.Set_Top_Win(Tdx_Main_HWND);
+}
+
+void TdxWin::Focus_Buy()
+{
+    Set_Main_Top();
 
 }
 
@@ -31,7 +37,10 @@ bool TdxWin::Open_Soft()
 
 bool TdxWin::Wait_For_Sign_In()
 {
-
+    while(!Tdx_Main_HWND)
+    {
+        Tdx_Main_HWND=api.Get_Win_HWND(Main_Father,Main_Layer,Main_ClaName,Main_WinName,Main_Trail);
+    }
 }
 
 bool TdxWin::HWND_Initial()

@@ -3,7 +3,6 @@
 
 Web::Web()
 {
-
 }
 
 bool Web::Send_Host(char *hos)

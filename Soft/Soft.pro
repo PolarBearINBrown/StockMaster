@@ -36,7 +36,8 @@ SOURCES += \
         STOCK\stock.cpp \
         WEB\web.cpp \
         KEYBOARD\keyboard.cpp \
-        MOUSE\mouse.cpp
+        MOUSE\mouse.cpp \
+        WINAPI\winapi.cpp
 
 HEADERS += \
         USER\mainwindow.h \
@@ -45,7 +46,8 @@ HEADERS += \
         STOCK\stock.h \
         WEB\web.h \
         KEYBOARD\keyboard.h \
-        MOUSE\mouse.h
+        MOUSE\mouse.h \
+        WINAPI\winapi.h
 
 FORMS += \
         USER\mainwindow.ui

@@ -14,8 +14,8 @@ class Mouse
 public:
     Mouse();
     void Get_Mouse_Loc(int* x,int* y);
-    void Click(int x,int y);
-    void Double_Click(int x,int y);
+    void Mouse_Click(int x,int y);
+    void Mouse_Double_Click(int x,int y);
 private:
 
 };

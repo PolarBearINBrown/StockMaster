@@ -71,6 +71,8 @@ private:
     bool Process_String(char *dat);
     bool Refresh_Real_Time_Data();
     bool Refresh_Index_Data();
+    void Output_RTD();
+    void Output_IND();
 };
 
 #endif

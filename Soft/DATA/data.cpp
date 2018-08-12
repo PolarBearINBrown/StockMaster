@@ -1,6 +1,13 @@
 #define DATA_CPP
 #include "data.h"
 
+Data::Data()
+{
+    memset(&R,0,sizeof(RTD));
+    memset(&I,0,sizeof(IND));
+    W.Send_Host("hq.sinajs.cn");
+}
+
 bool Data::Process_String(char* dat)
 {
     if(!strcmp(dat,"Error"))
@@ -450,13 +457,6 @@ bool Data::Refresh_Index_Data()
 
 }
 
-Data::Data()
-{
-    memset(&R,0,sizeof(RTD));
-    memset(&I,0,sizeof(IND));
-    W.Send_Host("hq.sinajs.cn");
-}
-
 void Data::Send_Code(char* code)
 {
     R.code=code;
@@ -470,11 +470,9 @@ RTD Data::Get_Real_Time_Data()
         R.run=1;
         return R;
     }
-    else
-    {
-        R.run=0;
-        return R;
-    }
+    Output_RTD();
+    R.run=0;
+    return R;
 }
 
 IND Data::Get_Index_Data()
@@ -484,9 +482,50 @@ IND Data::Get_Index_Data()
         I.run=1;
         return I;
     }
-    else
-    {
-        I.run=0;
-        return I;
-    }
+    Output_IND();
+    I.run=0;
+    return I;
+}
+
+void Data::Output_RTD()
+{
+    cout<<R.code<<endl;
+    cout<<R.name<<endl;
+    cout<<R.open<<endl;
+    cout<<R.close_yes<<endl;
+    cout<<R.current<<endl;
+    cout<<R.highest<<endl;
+    cout<<R.lowest<<endl;
+    cout<<R.bid<<endl;
+    cout<<R.auction<<endl;
+    cout<<R.volume<<endl;
+    cout<<R.turnover<<endl;
+    cout<<R.buy_1_amount<<endl;
+    cout<<R.buy_1_price<<endl;
+    cout<<R.buy_2_amount<<endl;
+    cout<<R.buy_2_price<<endl;
+    cout<<R.buy_3_amount<<endl;
+    cout<<R.buy_3_price<<endl;
+    cout<<R.buy_4_amount<<endl;
+    cout<<R.buy_4_price<<endl;
+    cout<<R.buy_5_amount<<endl;
+    cout<<R.buy_5_price<<endl;
+    cout<<R.sale_1_amount<<endl;
+    cout<<R.sale_1_price<<endl;
+    cout<<R.sale_2_amount<<endl;
+    cout<<R.sale_2_price<<endl;
+    cout<<R.sale_3_amount<<endl;
+    cout<<R.sale_3_price<<endl;
+    cout<<R.sale_4_amount<<endl;
+    cout<<R.sale_4_price<<endl;
+    cout<<R.sale_5_amount<<endl;
+    cout<<R.sale_5_price<<endl;
+    cout<<R.date<<endl;
+    cout<<R.time<<endl;
+    return;
+}
+
+void Data::Output_IND()
+{
+
 }

@@ -15,16 +15,16 @@ int main(int argc, char *argv[])
     w.show();
     */
 
-    /*
+
     Data D;
     while(1)
     {
         char *C;
         cin>>C;
         D.Send_Code(C);
-        RTD T=D.Get_Real_Time_Data();
+        D.Get_Real_Time_Data();
     }
-    */
+
 
     /*
     Mouse M;

@@ -422,6 +422,8 @@ bool Data::Process_String(char* dat)
             break;
         }
     }
+
+    return false;
 }
 
 bool Data::Refresh_Real_Time_Data()

@@ -41,8 +41,13 @@ int main(int argc, char *argv[])
     }
     */
 
+    /*
     TdxWin tdx;
     tdx.Soft_Initial();
+    */
+
+    Data D;
+    D.Get_Account_Data(true);
 
     return a.exec();
 }

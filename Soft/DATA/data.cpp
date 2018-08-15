@@ -1,6 +1,8 @@
 #define DATA_CPP
 #include "data.h"
 
+ACD Data::A;
+
 Data::Data()
 {
     memset(&R,0,sizeof(RTD));
@@ -457,6 +459,66 @@ bool Data::Refresh_Index_Data()
 
 }
 
+bool Data::Refresh_Account_Data()
+{
+    FILE *file;
+    file=fopen(TdxWin::Output_Location,"r+");
+    if(!file)
+    {
+        return true;
+    }
+    char tmp[150];
+    char *dat=tmp;
+    fgets(dat,150,file);
+    fclose(file);
+    dat+=13;
+    while(!(*dat++==':'));
+
+    //------获取可用资金------
+    for(int i=0;;i++)
+    {
+        if(dat[i]==' ')
+        {
+            dat[i]='\0';
+            QString Temp=dat;
+            A.available=Temp.toDouble();
+            dat+=i+1;
+            break;
+        }
+    }
+    while(!(*dat++==':'));
+
+    //------获取持有资产------
+    for(int i=0;;i++)
+    {
+        if(dat[i]==' ')
+        {
+            dat[i]='\0';
+            QString Temp=dat;
+            A.holding=Temp.toDouble();
+            dat+=i+1;
+            break;
+        }
+    }
+    while(!(*dat++==':'));
+    while(!(*dat++==':'));
+
+    //------获取总资产------
+    for(int i=0;;i++)
+    {
+        if(dat[i]==' ')
+        {
+            dat[i]='\0';
+            QString Temp=dat;
+            A.assets=Temp.toDouble();
+            dat+=i+1;
+            break;
+        }
+    }
+
+    return false;
+}
+
 void Data::Send_Code(char* code)
 {
     R.code=code;
@@ -485,6 +547,18 @@ IND Data::Get_Index_Data()
     //Output_IND();
     I.run=0;
     return I;
+}
+
+ACD Data::Get_Account_Data(bool refresh)
+{
+    if(refresh)
+    {
+        if(Refresh_Account_Data())
+        {
+            A.run=true;
+        }
+    }
+    return A;
 }
 
 void Data::Output_RTD()

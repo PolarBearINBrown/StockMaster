@@ -5,6 +5,7 @@
 
 #include "QString"
 #include "WEB/web.h"
+#include "TDXWIN/tdxwin.h"
 #include "string.h"
 #include "iostream"
 using namespace std;
@@ -56,6 +57,14 @@ typedef struct Index_Data
     char*     name;
 } IND;
 
+typedef struct Account_Data
+{
+    bool   run;
+    double available;
+    double holding;
+    double assets;
+} ACD;
+
 class Data
 {
 public:
@@ -63,12 +72,15 @@ public:
     void Send_Code(char* code);
     RTD Get_Real_Time_Data();
     IND Get_Index_Data();
+    ACD Get_Account_Data(bool refresh);
 private:
     RTD R;
     IND I;
+    static ACD A;
     bool Process_String(char *dat);
     bool Refresh_Real_Time_Data();
     bool Refresh_Index_Data();
+    bool Refresh_Account_Data();
     void Output_RTD();
     void Output_IND();
 };

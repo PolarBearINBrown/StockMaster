@@ -16,7 +16,7 @@ public:
     static void Set_Top_Win(HWND hwnd);
     static void Click_Window(HWND hwnd,int x,int y);
     static void Double_Click_Window(HWND hwnd,int x,int y);
-    static void Send_String(HWND hwnd,char* acc);
+    static void Send_String(HWND hwnd,const char *acc);
 private:
 
 };

@@ -14,8 +14,9 @@ class Keyboard
 {
 public:
     Keyboard();
+    static void Key_Backspace();
     static void Key_Enter();
-    static void Key_String(char* acc);
+    static void Key_String(const char *acc);
 private:
 
 };

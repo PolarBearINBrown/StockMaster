@@ -59,7 +59,7 @@ void WinAPI::Double_Click_Window(HWND hwnd, int x, int y)
     return;
 }
 
-void WinAPI::Send_String(HWND hwnd, char *acc)
+void WinAPI::Send_String(HWND hwnd,const char *acc)
 {
     int len=strlen(acc);
     for(int i;i<len;i++)

@@ -5,7 +5,7 @@ Data::Data()
 {
     memset(&R,0,sizeof(RTD));
     memset(&I,0,sizeof(IND));
-    W.Send_Host("hq.sinajs.cn");
+    Web::Send_Host("hq.sinajs.cn");
 }
 
 bool Data::Process_String(char* dat)
@@ -445,7 +445,7 @@ bool Data::Refresh_Real_Time_Data()
         strcpy(Sub,"list=sh");
     }
     strcat(Sub,R.code); 
-    if(Process_String(W.Get_Infomation(Sub)))
+    if(Process_String(Web::Get_Infomation(Sub)))
     {
         return true;
     }

@@ -1,11 +1,10 @@
 #ifndef DATA_H
 #define DATA_H
 
-#include "QString"
-#include "WEB/web.h"
-
 #if defined DATA_CPP
 
+#include "QString"
+#include "WEB/web.h"
 #include "string.h"
 #include "iostream"
 using namespace std;
@@ -67,7 +66,6 @@ public:
 private:
     RTD R;
     IND I;
-    Web W;
     bool Process_String(char *dat);
     bool Refresh_Real_Time_Data();
     bool Refresh_Index_Data();

@@ -14,8 +14,8 @@ class Keyboard
 {
 public:
     Keyboard();
-    void Key_Enter();
-    void Key_String(char* acc);
+    static void Key_Enter();
+    static void Key_String(char* acc);
 private:
 
 };

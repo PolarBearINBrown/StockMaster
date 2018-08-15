@@ -9,32 +9,29 @@ using namespace std;
 
 #endif
 
-#include "string"
-#include "stdlib.h"
 #include "winsock2.h"
-//#pragma comment(lib,"ws2_32.lib")
 
 class Web
 {
 public:
     Web();
-    bool  Send_Host(char* hos);
-    char* Get_Infomation(char* Sub);
+    static bool  Send_Host(char* hos);
+    static char* Get_Infomation(char* Sub);
 private:
-    char*       host;
-    char*       subdirectory;
-    WSADATA     data;
-    hostent     *h;
-    in_addr     ina;
-    LPSTR       ipstr;
-    sockaddr_in si;
-    int         sock;
+    static char*       host;
+    static char*       subdirectory;
+    static WSADATA     data;
+    static hostent     *h;
+    static in_addr     ina;
+    static LPSTR       ipstr;
+    static sockaddr_in si;
+    static int         sock;
 
-    bool Web_Initial();
-    bool Get_IPaddr();
-    bool Sock_Package();
-    bool Send_Request();
-    bool Release_Variable();
+    static bool Web_Initial();
+    static bool Get_IPaddr();
+    static bool Sock_Package();
+    static bool Send_Request();
+    static bool Release_Variable();
 };
 
 #endif

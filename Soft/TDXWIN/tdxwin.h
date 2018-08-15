@@ -1,38 +1,11 @@
 #ifndef TDXWIN_H
 #define TDXWIN_H
 
-#include "windows.h"
+#if defined TDXWIN_CPP
+
 #include "MOUSE/mouse.h"
 #include "QProcess"
 #include "WINAPI/winapi.h"
-
-class TdxWin
-{
-public:
-    char* Soft_Location;
-    char* Account_Number;
-    char* Password;
-    HWND  Tdx_Main_HWND;
-    HWND  Sign_In_HWND;
-
-    TdxWin();
-    bool Soft_Initial();
-    void Set_Main_Top();
-    bool Buy(char* code,float price,int amount);
-    bool Sale(char* code,float price,int amount);
-private:
-    WinAPI   api;
-    QProcess Tdx;
-    Mouse    Mos;
-    bool Open_Soft();
-    bool Wait_For_Sign_In();
-    bool HWND_Initial();
-    void Focus_Buy();
-    void Focus_Sale();
-};
-
-#if defined TDXWIN_CPP
-
 #include "iostream"
 using namespace std;
 
@@ -77,6 +50,30 @@ int Output_Button_y=550;
 //-------输出目录信息-------
 int Output_Content_Button_x=900;
 int Output_Content_Button_y=566;
+
 #endif
+
+#include "windows.h"
+
+class TdxWin
+{
+public:
+    static char* Soft_Location;
+    static HWND  Tdx_Main_HWND;
+    static HWND  Sign_In_HWND;
+
+    TdxWin();
+    static bool Soft_Initial();
+    static void Set_Main_Top();
+    static bool Buy(char* code,float price,int amount);
+    static bool Sale(char* code,float price,int amount);
+private:
+    static bool Open_Soft();
+    static bool Wait_For_Sign_In();
+    static bool HWND_Initial();
+    static void Focus_Buy();
+    static void Focus_Sale();
+    static void Focus_Hold();
+};
 
 #endif

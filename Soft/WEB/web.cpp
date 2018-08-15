@@ -1,6 +1,15 @@
 #define WEB_CPP
 #include "web.h"
 
+char*       Web::host;
+char*       Web::subdirectory;
+WSADATA     Web::data;
+hostent*    Web::h;
+in_addr     Web::ina;
+LPSTR       Web::ipstr;
+sockaddr_in Web::si;
+int         Web::sock;
+
 Web::Web()
 {
 }

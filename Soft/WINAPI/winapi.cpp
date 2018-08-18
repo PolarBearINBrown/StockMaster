@@ -30,7 +30,8 @@ void WinAPI::Set_Top_Win(HWND hwnd)
     HWND Judge=GetForegroundWindow();
     while(Judge!=hwnd)
     {
-        DestroyWindow(Judge);
+        ShowWindow(Judge,SW_MINIMIZE);
+        //DestroyWindow(Judge);
         Judge=GetForegroundWindow();
     }
     return;
@@ -62,9 +63,15 @@ void WinAPI::Double_Click_Window(HWND hwnd, int x, int y)
 void WinAPI::Send_String(HWND hwnd,const char *acc)
 {
     int len=strlen(acc);
-    for(int i;i<len;i++)
+    for(int i=0;i<len;i++)
     {
-        PostMessage(hwnd,WM_CHAR,acc[i],0);
+        SendMessage(hwnd,WM_CHAR,acc[i],0);
     }
+    return;
+}
+
+void WinAPI::Process_Name(const char *acc,WCHAR *name)
+{
+    MultiByteToWideChar(CP_ACP,0,acc,-1,name,6);
     return;
 }

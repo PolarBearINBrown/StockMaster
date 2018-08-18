@@ -2,6 +2,7 @@
 #include "DATA/data.h"
 #include "MOUSE/mouse.h"
 #include "TDXWIN/tdxwin.h"
+#include "STOCK/stock.h"
 #include <QApplication>
 
 #include "iostream"
@@ -42,12 +43,14 @@ int main(int argc, char *argv[])
     */
 
     /*
-    TdxWin tdx;
-    tdx.Soft_Initial();
+    TdxWin::Soft_Initial();
+    Data D;
+    D.Send_Code("600000");
+    D.Get_Index_Data();
     */
 
-    Data D;
-    D.Get_Account_Data(true);
+    //TdxWin::Soft_Initial();
+    Stock::Get_Account_Data();
 
     return a.exec();
 }

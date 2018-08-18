@@ -17,12 +17,15 @@ void Mouse::Get_Mouse_Loc(int *x, int *y)
 void Mouse::Mouse_Click(int x, int y)
 {
     SetCursorPos(x,y);
+    Sleep(100);
     mouse_event(MOUSEEVENTF_LEFTDOWN|MOUSEEVENTF_LEFTUP,0,0,0,0);
 }
 
 void Mouse::Mouse_Double_Click(int x,int y)
 {
     SetCursorPos(x,y);
+    Sleep(100);
     mouse_event(MOUSEEVENTF_LEFTDOWN|MOUSEEVENTF_LEFTUP,0,0,0,0);
+    Sleep(100);
     mouse_event(MOUSEEVENTF_LEFTDOWN|MOUSEEVENTF_LEFTUP,0,0,0,0);
 }

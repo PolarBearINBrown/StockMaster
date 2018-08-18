@@ -8,15 +8,18 @@
 #include "TDXWIN/tdxwin.h"
 #include "string.h"
 #include "iostream"
+#include "WINAPI/winapi.h"
 using namespace std;
 
 #endif
 
+#include "vector"
+
 typedef struct Real_Time_Data
 {
-    bool      run;
-    char*     code;
-    char*     name;
+    bool      error;
+    char      code[10];
+    wchar_t   name[6];
     float     open;
     float     close_yes;
     float     current;
@@ -52,35 +55,65 @@ typedef struct Real_Time_Data
 
 typedef struct Index_Data
 {
-    bool      run;
-    char*     code;
-    char*     name;
+    bool    error;
+    char    code[10];
+    wchar_t name[6];
+    struct KDJ
+    {
+        float K;
+        float D;
+        float J;
+    } KDJ;
+    struct VOL_TDX
+    {
+        double WOL;
+        double VOLUME;
+        double MA8;
+        double MA89;
+    } VOL_TDX;
 } IND;
 
 typedef struct Account_Data
 {
-    bool   run;
+    bool   error;
     double available;
     double holding;
     double assets;
 } ACD;
 
+typedef struct Decision_Data
+{
+    bool    error;
+    char    code[10];
+    wchar_t name[6];
+    int     securities_quantity;
+    int     hold_quantity;
+    int     available_quantity;
+    float   cost_price;
+    float   highest_price;
+    std::vector<int> strategy;
+} DED;
+
 class Data
 {
 public:
     Data();
-    void Send_Code(char* code);
-    RTD Get_Real_Time_Data();
-    IND Get_Index_Data();
-    ACD Get_Account_Data(bool refresh);
+
+    static ACD A;
+
+    void Send_Code(const char *code);
+    void Send_Name(const char *name);
+    RTD  Get_Real_Time_Data();
+    IND  Get_Index_Data();
+    void Send_Decision_Data(DED sd);
 private:
     RTD R;
     IND I;
-    static ACD A;
+    DED D;
     bool Process_String(char *dat);
     bool Refresh_Real_Time_Data();
     bool Refresh_Index_Data();
-    bool Refresh_Account_Data();
+    bool Refresh_Decision_Data();
     void Output_RTD();
     void Output_IND();
 };

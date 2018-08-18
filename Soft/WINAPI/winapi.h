@@ -17,6 +17,7 @@ public:
     static void Click_Window(HWND hwnd,int x,int y);
     static void Double_Click_Window(HWND hwnd,int x,int y);
     static void Send_String(HWND hwnd,const char *acc);
+    static void Process_Name(const char *acc,WCHAR *name);
 private:
 
 };

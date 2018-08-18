@@ -10,6 +10,49 @@ Data::Data()
     Web::Send_Host("hq.sinajs.cn");
 }
 
+void Data::Send_Code(const char* code)
+{
+    strcpy(R.code,code);
+    strcpy(I.code,code);
+    strcpy(D.code,code);
+}
+
+void Data::Send_Name(const char *name)
+{
+    WinAPI::Process_Name(name,R.name);
+    WinAPI::Process_Name(name,I.name);
+    WinAPI::Process_Name(name,D.name);
+}
+
+RTD Data::Get_Real_Time_Data()
+{
+    if(Refresh_Real_Time_Data())
+    {
+        R.error=true;
+        return R;
+    }
+    //Output_RTD();
+    R.error=false;
+    return R;
+}
+
+IND Data::Get_Index_Data()
+{
+    if(Refresh_Index_Data())
+    {
+        I.error=true;
+        return I;
+    }
+    Output_IND();
+    I.error=false;
+    return I;
+}
+
+void Data::Send_Decision_Data(DED sd)
+{
+    memcpy(&D,&sd,sizeof(DED));
+}
+
 bool Data::Process_String(char* dat)
 {
     if(!strcmp(dat,"Error"))
@@ -24,8 +67,9 @@ bool Data::Process_String(char* dat)
         if(dat[i]==',')
         {
             dat[i]='\0';
-            R.name=dat;
-            I.name=dat;
+            WinAPI::Process_Name(dat,R.name);
+            WinAPI::Process_Name(dat,I.name);
+            WinAPI::Process_Name(dat,D.name);
             dat+=i+1;
             break;
         }
@@ -456,109 +500,45 @@ bool Data::Refresh_Real_Time_Data()
 
 bool Data::Refresh_Index_Data()
 {
-
-}
-
-bool Data::Refresh_Account_Data()
-{
+    TdxWin::Save_Index(I.code,"KDJ");
+    char Loc[100]="";
+    strcpy(Loc,TdxWin::Index_Location);
+    strcat(Loc,I.code);
+    strcat(Loc,".txt");
     FILE *file;
-    file=fopen(TdxWin::Output_Location,"r+");
+    file=fopen(Loc,"r+");
     if(!file)
     {
         return true;
     }
-    char tmp[150];
-    char *dat=tmp;
-    fgets(dat,150,file);
+    char Ope[500]="";
+    char Tmp[500]="";
+    char *dat=Ope;
+    int i=0;
+    while(strlen(Tmp)!=16)
+    {
+        strcpy(Ope,Tmp);
+        fgets(Tmp,500,file);
+        i=strlen(Tmp);
+    }
     fclose(file);
+    dat+=64;
+    dat[12]='\0';
+    QString Str=dat;
+    I.KDJ.K=Str.toFloat();
     dat+=13;
-    while(!(*dat++==':'));
-
-    //------获取可用资金------
-    for(int i=0;;i++)
-    {
-        if(dat[i]==' ')
-        {
-            dat[i]='\0';
-            QString Temp=dat;
-            A.available=Temp.toDouble();
-            dat+=i+1;
-            break;
-        }
-    }
-    while(!(*dat++==':'));
-
-    //------获取持有资产------
-    for(int i=0;;i++)
-    {
-        if(dat[i]==' ')
-        {
-            dat[i]='\0';
-            QString Temp=dat;
-            A.holding=Temp.toDouble();
-            dat+=i+1;
-            break;
-        }
-    }
-    while(!(*dat++==':'));
-    while(!(*dat++==':'));
-
-    //------获取总资产------
-    for(int i=0;;i++)
-    {
-        if(dat[i]==' ')
-        {
-            dat[i]='\0';
-            QString Temp=dat;
-            A.assets=Temp.toDouble();
-            dat+=i+1;
-            break;
-        }
-    }
-
+    dat[12]='\0';
+    Str=dat;
+    I.KDJ.D=Str.toFloat();
+    dat+=13;
+    Str=dat;
+    I.KDJ.J=Str.toFloat();
     return false;
 }
 
-void Data::Send_Code(char* code)
+bool Data::Refresh_Decision_Data()
 {
-    R.code=code;
-    I.code=code;
-}
-
-RTD Data::Get_Real_Time_Data()
-{
-    if(Refresh_Real_Time_Data())
-    {
-        R.run=1;
-        return R;
-    }
-    //Output_RTD();
-    R.run=0;
-    return R;
-}
-
-IND Data::Get_Index_Data()
-{
-    if(Refresh_Index_Data())
-    {
-        I.run=1;
-        return I;
-    }
-    //Output_IND();
-    I.run=0;
-    return I;
-}
-
-ACD Data::Get_Account_Data(bool refresh)
-{
-    if(refresh)
-    {
-        if(Refresh_Account_Data())
-        {
-            A.run=true;
-        }
-    }
-    return A;
+    D.highest_price=max(D.highest_price,R.current);
 }
 
 void Data::Output_RTD()
@@ -601,5 +581,9 @@ void Data::Output_RTD()
 
 void Data::Output_IND()
 {
-
+    cout<<I.code<<endl;
+    cout<<I.name<<endl;
+    cout<<I.KDJ.K<<endl;
+    cout<<I.KDJ.D<<endl;
+    cout<<I.KDJ.J<<endl;
 }

@@ -7,6 +7,7 @@
 #include "windows.h"
 #include "iostream"
 #include "stdlib.h"
+using namespace std;
 
 #endif
 
@@ -16,6 +17,7 @@ public:
     Keyboard();
     static void Key_Backspace();
     static void Key_Enter();
+    static void Key_Esc();
     static void Key_String(const char *acc);
 private:
 

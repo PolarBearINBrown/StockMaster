@@ -14,7 +14,7 @@ Web::Web()
 {
 }
 
-bool Web::Send_Host(char *hos)
+bool  Web::Send_Host(char *hos)
 {
     host=hos;
     if(Web_Initial())
@@ -36,7 +36,7 @@ char* Web::Get_Infomation(char *Sub)
     return buf;
 }
 
-bool Web::Web_Initial()
+bool  Web::Web_Initial()
 {
     if(Get_IPaddr())
     {
@@ -49,7 +49,7 @@ bool Web::Web_Initial()
     return false;
 }
 
-bool Web::Get_IPaddr()
+bool  Web::Get_IPaddr()
 {
     if(WSAStartup(MAKEWORD(2,2),&data))
     {
@@ -65,7 +65,7 @@ bool Web::Get_IPaddr()
     return false;
 }
 
-bool Web::Sock_Package()
+bool  Web::Sock_Package()
 {
     si.sin_family=AF_INET;
     si.sin_port=htons(80);
@@ -79,7 +79,7 @@ bool Web::Sock_Package()
     return false;
 }
 
-bool Web::Send_Request()
+bool  Web::Send_Request()
 {
     char request[1024]="GET /";
     strcat(request,subdirectory);
@@ -90,7 +90,7 @@ bool Web::Send_Request()
     return false;
 }
 
-bool Web::Release_Variable()
+bool  Web::Release_Variable()
 {
     closesocket(sock);
     WSACleanup();

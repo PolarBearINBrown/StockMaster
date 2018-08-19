@@ -19,38 +19,41 @@ void Data::Send_Code(const char* code)
 
 void Data::Send_Name(const char *name)
 {
-    WinAPI::Process_Name(name,R.name);
-    WinAPI::Process_Name(name,I.name);
-    WinAPI::Process_Name(name,D.name);
+    WinAPI::Char_To_WChar(name,R.name);
+    WinAPI::Char_To_WChar(name,I.name);
+    WinAPI::Char_To_WChar(name,D.name);
 }
 
-RTD Data::Get_Real_Time_Data()
+bool Data::Refresh_Decision_Data()
 {
-    if(Refresh_Real_Time_Data())
-    {
-        R.error=true;
-        return R;
-    }
-    //Output_RTD();
-    R.error=false;
-    return R;
-}
-
-IND Data::Get_Index_Data()
-{
-    if(Refresh_Index_Data())
-    {
-        I.error=true;
-        return I;
-    }
-    Output_IND();
-    I.error=false;
-    return I;
+    D.error=false;
+    D.highest_price=max(D.highest_price,R.current);
+    return false;
 }
 
 void Data::Send_Decision_Data(DED sd)
 {
     memcpy(&D,&sd,sizeof(DED));
+}
+
+void Data::Add_Strategy(int s)
+{
+    int len=D.strategy.size();
+    for(int i=0;i<len;i++)
+    {
+        if(D.strategy[i]==s)
+        {
+            return;
+        }
+    }
+    D.strategy.push_back(s);
+    return;
+}
+
+void Data::Swap_Strategy(int a,int b)
+{
+    swap(D.strategy[a],D.strategy[b]);
+    return;
 }
 
 bool Data::Process_String(char* dat)
@@ -67,9 +70,9 @@ bool Data::Process_String(char* dat)
         if(dat[i]==',')
         {
             dat[i]='\0';
-            WinAPI::Process_Name(dat,R.name);
-            WinAPI::Process_Name(dat,I.name);
-            WinAPI::Process_Name(dat,D.name);
+            WinAPI::Char_To_WChar(dat,R.name);
+            WinAPI::Char_To_WChar(dat,I.name);
+            WinAPI::Char_To_WChar(dat,D.name);
             dat+=i+1;
             break;
         }
@@ -500,6 +503,12 @@ bool Data::Refresh_Real_Time_Data()
 
 bool Data::Refresh_Index_Data()
 {
+    Read_KDJ();
+    return false;
+}
+
+bool Data::Read_KDJ()
+{
     TdxWin::Save_Index(I.code,"KDJ");
     char Loc[100]="";
     strcpy(Loc,TdxWin::Index_Location);
@@ -533,12 +542,6 @@ bool Data::Refresh_Index_Data()
     dat+=13;
     Str=dat;
     I.KDJ.J=Str.toFloat();
-    return false;
-}
-
-bool Data::Refresh_Decision_Data()
-{
-    D.highest_price=max(D.highest_price,R.current);
 }
 
 void Data::Output_RTD()

@@ -5,9 +5,6 @@
 #include "STOCK/stock.h"
 #include <QApplication>
 
-#include "iostream"
-using namespace std;
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -49,8 +46,10 @@ int main(int argc, char *argv[])
     D.Get_Index_Data();
     */
 
-    //TdxWin::Soft_Initial();
-    Stock::Get_Account_Data();
+    TdxWin::Soft_Initial();
+    Stock::Stock_Initial();
+    Stock::Get_Output_Data();
+    Stock::Save_Data();
 
     return a.exec();
 }

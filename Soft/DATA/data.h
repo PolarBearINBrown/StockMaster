@@ -99,21 +99,22 @@ class Data
 public:
     Data();
 
+    RTD R;
+    IND I;
+    DED D;
     static ACD A;
 
     void Send_Code(const char *code);
     void Send_Name(const char *name);
-    RTD  Get_Real_Time_Data();
-    IND  Get_Index_Data();
-    void Send_Decision_Data(DED sd);
-private:
-    RTD R;
-    IND I;
-    DED D;
-    bool Process_String(char *dat);
     bool Refresh_Real_Time_Data();
     bool Refresh_Index_Data();
     bool Refresh_Decision_Data();
+    void Send_Decision_Data(DED sd);
+    void Add_Strategy(int s);
+    void Swap_Strategy(int a,int b);
+private:
+    bool Process_String(char *dat);
+    bool Read_KDJ();
     void Output_RTD();
     void Output_IND();
 };

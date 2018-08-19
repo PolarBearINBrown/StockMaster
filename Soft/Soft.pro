@@ -37,7 +37,8 @@ SOURCES += \
         KEYBOARD\keyboard.cpp \
         MOUSE\mouse.cpp \
         WINAPI\winapi.cpp \
-        TDXWIN\tdxwin.cpp
+        TDXWIN\tdxwin.cpp \
+        STRATEGY\strategy.cpp
 
 HEADERS += \
         USER\mainwindow.h \
@@ -47,7 +48,8 @@ HEADERS += \
         KEYBOARD\keyboard.h \
         MOUSE\mouse.h \
         WINAPI\winapi.h \
-        TDXWIN\tdxwin.h
+        TDXWIN\tdxwin.h \
+        STRATEGY\strategy.h
 
 FORMS += \
         USER\mainwindow.ui

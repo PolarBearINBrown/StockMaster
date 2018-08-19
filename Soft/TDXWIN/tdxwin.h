@@ -70,6 +70,39 @@ WCHAR*  Confirm_Win_WinName[1]={
 };
 int     Confirm_Win_Trail[1]={1};
 
+//-------买入交易确认页面信息-------
+#define Buy_Confirm_Win_Father NULL
+int     Buy_Confirm_Win_Layer=1;
+WCHAR*  Buy_Confirm_Win_ClaName[1]={
+    L"#32770"
+};
+WCHAR*  Buy_Confirm_Win_WinName[1]={
+    L"买入交易确认"
+};
+int     Buy_Confirm_Win_Trail[1]={1};
+
+//-------卖出交易确认页面信息-------
+#define Sale_Confirm_Win_Father NULL
+int     Sale_Confirm_Win_Layer=1;
+WCHAR*  Sale_Confirm_Win_ClaName[1]={
+    L"#32770"
+};
+WCHAR*  Sale_Confirm_Win_WinName[1]={
+    L"卖出交易确认"
+};
+int     Sale_Confirm_Win_Trail[1]={1};
+
+//-------输出文本页面信息-------
+#define Text_Win_Father NULL
+int     Text_Win_Layer=1;
+WCHAR*  Text_Win_ClaName[1]={
+    L"Notepad"
+};
+WCHAR*  Text_Win_WinName[1]={
+    L"Output.txt - 记事本"
+};
+int     Text_Win_Trail[1]={1};
+
 //-------买入页面按钮信息-------
 int Buy_Page_Button_x=232;
 int Buy_Page_Button_y=466;
@@ -101,11 +134,11 @@ int Main_Page_y=200;
 class TdxWin
 {
 public:
-    static char*  Soft_Location;
-    static char*  Index_Location;
-    static WCHAR* Output_Location;
-    static HWND   Tdx_Main_HWND;
-    static HWND   Sign_In_HWND;
+    static char* Soft_Location;
+    static char* Index_Location;
+    static char* Output_Location;
+    static HWND  Tdx_Main_HWND;
+    static HWND  Sign_In_HWND;
 
     TdxWin();
     static bool Soft_Initial();
@@ -124,6 +157,9 @@ private:
     static HWND Check_Output_Win();
     static HWND Check_Index_Win();
     static HWND Check_Confirm_Win();
+    static HWND Check_Buy_Confirm_Win();
+    static HWND Check_Sale_Confirm_Win();
+    static HWND Check_Text_Win();
 };
 
 #endif

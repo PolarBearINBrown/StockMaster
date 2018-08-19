@@ -5,6 +5,8 @@
 
 #include "QString"
 #include "stdio.h"
+#include "iostream"
+#include "fstream"
 #include "TDXWIN/tdxwin.h"
 #include "WINAPI/winapi.h"
 using namespace std;
@@ -14,14 +16,23 @@ using namespace std;
 #include "string"
 #include "map"
 #include "DATA/data.h"
+#include "STRATEGY/strategy.h"
 
 class Stock
 {
 public:
+    static char* Save_Location;
+
     Stock();
-    static bool Get_Account_Data();
+    static void Stock_Initial();
+    static bool Get_Output_Data();
+    static bool Read_Save_Data();
+    static bool Save_Data();
+    static void Main_Operate();
 private:
     static std::map<std::string,Data> My_Stock;
+    static void Process_Stock(std::map<std::string,Data>::iterator stk);
+    static OPS  Judge(RTD rtd,IND ind,DED ded);
 };
 
 #endif

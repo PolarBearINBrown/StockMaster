@@ -22,6 +22,7 @@ class Stock
 {
 public:
     static char* Save_Location;
+    static std::map<std::string,Data> My_Stock;
 
     Stock();
     static void Stock_Initial();
@@ -30,7 +31,6 @@ public:
     static bool Save_Data();
     static void Main_Operate();
 private:
-    static std::map<std::string,Data> My_Stock;
     static void Process_Stock(std::map<std::string,Data>::iterator stk);
     static OPS  Judge(RTD rtd,IND ind,DED ded);
 };

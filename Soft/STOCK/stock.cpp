@@ -210,33 +210,132 @@ bool Stock::Get_Output_Data()
 
 bool Stock::Read_Save_Data()
 {
-    ifstream file;
-    file.open(Save_Location,ios::in);
+    Save_Location="D:\\Save.txt";
+    FILE *file;
+    file=fopen(Save_Location,"r+");
     if(!file)
     {
-        TdxWin::Soft_Location="C:\\new_tdx_zcgl\\TdxW.exe";
+        strcpy(TdxWin::Soft_Location,"C:\\new_tdx_zcgl\\TdxW.exe");
         return false;
     }
-    file>>TdxWin::Soft_Location;
+    fgets(TdxWin::Soft_Location,100,file);
 
     DED Tmp;
     char name[10];
+    char get[400];
+    char *dat=get;
     int s;
+    Tmp.error=false;
     while(true)
     {
-        file>>Tmp.code;
-        if(!strcmp(Tmp.code,"end"))
+        fgets(dat,400,file);
+        if(!strcmp(dat,"end"))
         {
             break;
         }
-        file>>name>>Tmp.securities_quantity>>Tmp.hold_quantity>>Tmp.available_quantity>>Tmp.cost_price>>Tmp.highest_price;
-        file>>s;
+        for(int i=0;;i++)
+        {
+            if(dat[i]==' ')
+            {
+                dat[i]='\0';
+                strcpy(Tmp.code,dat);
+                dat+=i+1;
+                break;
+            }
+        }
+        for(int i=0;;i++)
+        {
+            if(dat[i]==' '&&dat[i+1]==' ')
+            {
+                dat[i]='\0';
+                strcpy(name,dat);
+                dat+=i+2;
+                break;
+            }
+        }
+        WinAPI::Char_To_WChar(name,Tmp.name);
+        for(int i=0;;i++)
+        {
+            if(dat[i]==' ')
+            {
+                dat[i]='\0';
+                QString TMP=dat;
+                Tmp.securities_quantity=TMP.toFloat();
+                dat+=i+1;
+                break;
+            }
+        }
+        for(int i=0;;i++)
+        {
+            if(dat[i]==' ')
+            {
+                dat[i]='\0';
+                QString TMP=dat;
+                Tmp.hold_quantity=TMP.toFloat();
+                dat+=i+1;
+                break;
+            }
+        }
+        for(int i=0;;i++)
+        {
+            if(dat[i]==' ')
+            {
+                dat[i]='\0';
+                QString TMP=dat;
+                Tmp.available_quantity=TMP.toFloat();
+                dat+=i+1;
+                break;
+            }
+        }
+        for(int i=0;;i++)
+        {
+            if(dat[i]==' ')
+            {
+                dat[i]='\0';
+                QString TMP=dat;
+                Tmp.cost_price=TMP.toFloat();
+                dat+=i+1;
+                break;
+            }
+        }
+        for(int i=0;;i++)
+        {
+            if(dat[i]==' ')
+            {
+                dat[i]='\0';
+                QString TMP=dat;
+                Tmp.highest_price=TMP.toFloat();
+                dat+=i+1;
+                break;
+            }
+        }
+        for(int i=0;;i++)
+        {
+            if(dat[i]==' ')
+            {
+                dat[i]='\0';
+                QString TMP=dat;
+                s=TMP.toFloat();
+                dat+=i+1;
+                break;
+            }
+        }
         while(s!=-1)
         {
             Tmp.strategy.push_back(s);
-            file>>s;
+            for(int i=0;;i++)
+            {
+                if(dat[i]==' ')
+                {
+                    dat[i]='\0';
+                    QString TMP=dat;
+                    s=TMP.toFloat();
+                    dat+=i+1;
+                    break;
+                }
+            }
         }
-        My_Stock[Tmp.code].Send_Name(name);
+        dat=get;
         My_Stock[Tmp.code].Send_Decision_Data(Tmp);
     }
 
@@ -260,9 +359,13 @@ bool Stock::Save_Data()
     for(it=My_Stock.begin();it!=My_Stock.end();it++)
     {
         Tmp=it->second.D;
+        if(Tmp.strategy.empty()&&Tmp.hold_quantity==0)
+        {
+            continue;
+        }
         file<<Tmp.code<<' ';
         WinAPI::WChar_To_Char(Tmp.name,name);
-        file<<name<<' ';
+        file<<name<<'  ';
         file<<Tmp.securities_quantity<<' ';
         file<<Tmp.hold_quantity<<' ';
         file<<Tmp.available_quantity<<' ';
@@ -290,6 +393,7 @@ void Stock::Main_Operate()
             Process_Stock(i);
         }
     }
+    return;
 }
 
 void Stock::Process_Stock(map<string,Data>::iterator stk)

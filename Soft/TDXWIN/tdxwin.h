@@ -134,11 +134,11 @@ int Main_Page_y=200;
 class TdxWin
 {
 public:
-    static char* Soft_Location;
-    static char* Index_Location;
-    static char* Output_Location;
-    static HWND  Tdx_Main_HWND;
-    static HWND  Sign_In_HWND;
+    static char Soft_Location[100];
+    static char Index_Location[100];
+    static char Output_Location[100];
+    static HWND Tdx_Main_HWND;
+    static HWND Sign_In_HWND;
 
     TdxWin();
     static bool Soft_Initial();

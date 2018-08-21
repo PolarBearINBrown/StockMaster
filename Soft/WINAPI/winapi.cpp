@@ -79,7 +79,7 @@ void WinAPI::Send_String(HWND hwnd,const char *acc)
 
 void WinAPI::Char_To_WChar(const char *acc,WCHAR *name)
 {
-    MultiByteToWideChar(CP_ACP,0,acc,-1,name,6);
+    MultiByteToWideChar(CP_ACP,0,acc,-1,name,8);
     return;
 }
 

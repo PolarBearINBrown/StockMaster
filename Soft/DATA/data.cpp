@@ -4,10 +4,13 @@
 ACD Data::A;
 
 Data::Data()
+{}
+
+void Data::Initial()
 {
     memset(&R,0,sizeof(RTD));
     memset(&I,0,sizeof(IND));
-    Web::Send_Host("hq.sinajs.cn");
+    memset(&D,0,sizeof(DED));
 }
 
 void Data::Send_Code(const char* code)
@@ -50,19 +53,38 @@ void Data::Add_Strategy(int s)
     return;
 }
 
+void Data::Delete_Strategy(int s)
+{
+    int len=D.strategy.size();
+    for(int i=0;i<len;i++)
+    {
+        if(D.strategy[i]==s)
+        {
+            D.strategy.erase(D.strategy.begin()+i);
+            break;
+        }
+    }
+    return;
+}
+
 void Data::Swap_Strategy(int a,int b)
 {
     swap(D.strategy[a],D.strategy[b]);
     return;
 }
 
-bool Data::Process_String(char* dat)
+bool Data::Process_String(char acc[])
 {
+    char *dat=acc;
     if(!strcmp(dat,"Error"))
     {
         return true;
     }
     while(!(*dat++=='"'));
+    if(strlen(dat)==3)
+    {
+        return true;
+    }
 
     //---------name---------
     for(int i=0;;i++)
@@ -490,6 +512,10 @@ bool Data::Refresh_Real_Time_Data()
         strcpy(Sub,"list=sz");
     }
     else if(R.code[0]=='6')
+    {
+        strcpy(Sub,"list=sh");
+    }
+    else
     {
         strcpy(Sub,"list=sh");
     }

@@ -19,7 +19,7 @@ typedef struct Real_Time_Data
 {
     bool      error;
     char      code[10];
-    wchar_t   name[6];
+    wchar_t   name[10];
     float     open;
     float     close_yes;
     float     current;
@@ -57,7 +57,7 @@ typedef struct Index_Data
 {
     bool    error;
     char    code[10];
-    wchar_t name[6];
+    wchar_t name[10];
     struct KDJ
     {
         float K;
@@ -85,7 +85,7 @@ typedef struct Decision_Data
 {
     bool    error;
     char    code[10];
-    wchar_t name[6];
+    wchar_t name[10];
     int     securities_quantity;
     int     hold_quantity;
     int     available_quantity;
@@ -104,6 +104,7 @@ public:
     DED D;
     static ACD A;
 
+    void Initial();
     void Send_Code(const char *code);
     void Send_Name(const char *name);
     bool Refresh_Real_Time_Data();
@@ -111,9 +112,10 @@ public:
     bool Refresh_Decision_Data();
     void Send_Decision_Data(DED sd);
     void Add_Strategy(int s);
+    void Delete_Strategy(int s);
     void Swap_Strategy(int a,int b);
 private:
-    bool Process_String(char *dat);
+    bool Process_String(char acc[]);
     bool Read_KDJ();
     void Output_RTD();
     void Output_IND();

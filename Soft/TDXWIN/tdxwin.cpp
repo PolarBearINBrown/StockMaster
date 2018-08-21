@@ -1,11 +1,11 @@
 #define TDXWIN_CPP
 #include "tdxwin.h"
 
-char* TdxWin::Soft_Location;
-char* TdxWin::Index_Location;
-char* TdxWin::Output_Location;
-HWND  TdxWin::Tdx_Main_HWND;
-HWND  TdxWin::Sign_In_HWND;
+char TdxWin::Soft_Location[100];
+char TdxWin::Index_Location[100];
+char TdxWin::Output_Location[100];
+HWND TdxWin::Tdx_Main_HWND;
+HWND TdxWin::Sign_In_HWND;
 
 TdxWin::TdxWin()
 {
@@ -15,9 +15,9 @@ bool TdxWin::Soft_Initial()
 {
     Tdx_Main_HWND=NULL;
     Sign_In_HWND=NULL;
-    Output_Location="D:\\Output.txt";
-    Soft_Location="C:\\new_tdx_zcgl\\TdxW.exe";
-    Index_Location="D:\\";
+    strcpy(Output_Location,"D:\\Output.txt");
+    strcpy(Soft_Location,"C:\\new_tdx_zcgl\\TdxW.exe");
+    strcpy(Index_Location,"D:\\");
     if(Open_Soft())
     {
         return true;

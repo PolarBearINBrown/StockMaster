@@ -31,7 +31,7 @@ void WinAPI::Set_Top_Win(HWND hwnd)
     while(Judge!=hwnd)
     {
         ShowWindow(Judge,SW_MINIMIZE);
-        //SendMessage(hwnd,WM_DESTROY,0,0);
+        //Destroy_Win(Judge);
         Judge=GetForegroundWindow();
     }
     return;

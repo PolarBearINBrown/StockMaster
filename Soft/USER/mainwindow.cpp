@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
 
 MainWindow::~MainWindow()
 {
+    Stock::Save_Data();
     delete ui;
 }
 
@@ -208,4 +209,13 @@ void MainWindow::Refresh_Strategy_Description(int num)
     ui->description->clear();
     ui->description->setText(QString::fromWCharArray(Strategy::Strategy_Description[num]));
     return;
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    this->showMinimized();
+    TdxWin::Soft_Initial();
+    Stock::Get_Output_Data();
+    Stock::Main_Operate();
+
 }

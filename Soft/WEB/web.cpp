@@ -17,16 +17,16 @@ Web::Web()
 bool  Web::Send_Host(char *hos)
 {
     host=hos;
-    if(Web_Initial())
-    {
-        return true;
-    }
     return false;
 }
 
 char* Web::Get_Infomation(char *Sub)
 {
     subdirectory=Sub;
+    if(Web_Initial())
+    {
+        return "ERROR";
+    }
     if(Send_Request())
     {
         return "ERROR";

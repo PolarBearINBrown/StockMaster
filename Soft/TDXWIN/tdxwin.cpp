@@ -16,7 +16,6 @@ bool TdxWin::Soft_Initial()
     Tdx_Main_HWND=NULL;
     Sign_In_HWND=NULL;
     strcpy(Output_Location,"D:\\Output.txt");
-    strcpy(Soft_Location,"C:\\new_tdx_zcgl\\TdxW.exe");
     strcpy(Index_Location,"D:\\");
     if(Open_Soft())
     {
@@ -112,7 +111,10 @@ bool TdxWin::Save_Index(char *code, char *index)
 
 bool TdxWin::Open_Soft()
 {
-    QProcess::startDetached(Soft_Location);
+    if(QProcess::startDetached(Soft_Location)==QProcess::FailedToStart)
+    {
+        return true;
+    }
     while(!Sign_In_HWND)
     {
         Sign_In_HWND=WinAPI::Get_Win_HWND(Sign_In_Father,Sign_In_Layer,Sign_In_ClaName,Sign_In_WinName,Sign_In_Trail);

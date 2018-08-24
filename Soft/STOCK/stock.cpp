@@ -221,7 +221,7 @@ bool Stock::Read_Save_Data()
     fgets(TdxWin::Soft_Location,100,file);
 
     DED Tmp;
-    char name[10];
+    char name[10]="";
     char get[400];
     char *dat=get;
     int s;
@@ -337,6 +337,9 @@ bool Stock::Read_Save_Data()
         }
         dat=get;
         My_Stock[Tmp.code].Send_Decision_Data(Tmp);
+        My_Stock[Tmp.code].Send_Name(name);
+        Tmp.strategy.clear();
+        memset(name,0,sizeof(name));
     }
 
     return false;
@@ -351,7 +354,7 @@ bool Stock::Save_Data()
     {
         return true;
     }
-    file<<TdxWin::Soft_Location<<endl;
+    file<<TdxWin::Soft_Location;
 
     map<string,Data>::iterator it;
     DED Tmp;
@@ -365,7 +368,7 @@ bool Stock::Save_Data()
         }
         file<<Tmp.code<<' ';
         WinAPI::WChar_To_Char(Tmp.name,name);
-        file<<name<<'  ';
+        file<<name<<"  ";
         file<<Tmp.securities_quantity<<' ';
         file<<Tmp.hold_quantity<<' ';
         file<<Tmp.available_quantity<<' ';
@@ -385,6 +388,22 @@ bool Stock::Save_Data()
 
 void Stock::Main_Operate()
 {
+    while(WinAPI::Check_Time(9,30,00)<0)
+    {
+        Sleep(1000);
+    }
+    while(WinAPI::Check_Time(11,30,00)<0)
+    {
+        map<string,Data>::iterator i;
+        for(i=My_Stock.begin();i!=My_Stock.end();i++)
+        {
+            Process_Stock(i);
+        }
+    }
+    while(WinAPI::Check_Time(13,00,00)<0)
+    {
+        Sleep(1000);
+    }
     while(WinAPI::Check_Time(15,00,00)<0)
     {
         map<string,Data>::iterator i;
@@ -393,6 +412,7 @@ void Stock::Main_Operate()
             Process_Stock(i);
         }
     }
+    cout<<"end\n";
     return;
 }
 
@@ -421,7 +441,7 @@ OPS  Stock::Judge(RTD rtd,IND ind,DED ded)
         case STOP_LOSS:
             o=Strategy::Stop_Loss(rtd,ind,ded);
             break;
-        case 2:
+        case 1:
             break;
         default:
             break;

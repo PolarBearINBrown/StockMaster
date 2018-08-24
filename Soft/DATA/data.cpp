@@ -36,7 +36,19 @@ bool Data::Refresh_Decision_Data()
 
 void Data::Send_Decision_Data(DED sd)
 {
-    memcpy(&D,&sd,sizeof(DED));
+    D.available_quantity=sd.available_quantity;
+    strcpy(D.code,sd.code);
+    D.cost_price=sd.cost_price;
+    D.error=sd.error;
+    D.highest_price=sd.highest_price;
+    D.hold_quantity=sd.hold_quantity;
+    wcscpy(D.name,sd.name);
+    D.securities_quantity=sd.securities_quantity;
+    int len=sd.strategy.size();
+    for(int i=0;i<len;i++)
+    {
+        D.strategy.push_back(sd.strategy[i]);
+    }
 }
 
 void Data::Add_Strategy(int s)
@@ -506,6 +518,7 @@ bool Data::Process_String(char acc[])
 
 bool Data::Refresh_Real_Time_Data()
 {
+    cout<<R.code<<endl;
     char Sub[1024]="";
     if(R.code[0]=='0'||R.code[0]=='3')
     {
@@ -520,7 +533,13 @@ bool Data::Refresh_Real_Time_Data()
         strcpy(Sub,"list=sh");
     }
     strcat(Sub,R.code); 
-    if(Process_String(Web::Get_Infomation(Sub)))
+    char Tmp[1024]="";
+    while(strlen(Tmp)==0)
+    {
+        Sleep(100);
+        strcpy(Tmp,Web::Get_Infomation(Sub));
+    }
+    if(Process_String(Tmp))
     {
         return true;
     }

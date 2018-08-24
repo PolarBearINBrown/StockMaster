@@ -6,6 +6,7 @@
 #if defined MAINWINDOW_CPP
 
 #include "STOCK/stock.h"
+#include "TDXWIN/tdxwin.h"
 #include "iostream"
 #include "QLineEdit"
 #include "QRegExp"
@@ -52,6 +53,8 @@ private slots:
     void on_selected_strategy_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
     void on_avaliable_strategy_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
+    void on_pushButton_clicked();
 
 private:
 
